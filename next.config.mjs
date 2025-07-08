@@ -71,8 +71,6 @@ const config = {
     unoptimized: true, // moved here correctly
   },
 
-  output: 'standalone',
-  distDir: 'out',
   trailingSlash: true,
   staticPageGenerationTimeout: 1000,
   reactStrictMode: false,
