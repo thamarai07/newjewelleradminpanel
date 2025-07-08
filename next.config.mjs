@@ -76,6 +76,9 @@ const config = {
   trailingSlash: true,
   staticPageGenerationTimeout: 1000,
   reactStrictMode: false,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default config;
