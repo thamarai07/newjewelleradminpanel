@@ -1,0 +1,37 @@
+#!/bin/bash
+
+rm -rf ./packerman/
+
+# Define variables
+BASE_DIR="$(pwd)"
+NEW_DIR="$BASE_DIR/packerman"
+PACKIGNORE_FILE=".packignore"
+
+# Create new_dir if it doesn't exist
+mkdir -p "$NEW_DIR"
+
+# Convert .packignore entries into a find command exclusion pattern
+EXCLUDE_PATTERN=""
+if [ -f "$PACKIGNORE_FILE" ]; then
+  while IFS= read -r line; do
+    EXCLUDE_PATTERN+=" -path './$line' -prune -o"
+  done < "$PACKIGNORE_FILE"
+fi
+
+# Find all files excluding patterns from .packignore and process them
+eval "find . $EXCLUDE_PATTERN -type f -print" | while read -r FILE; do
+  # Skip files in new_dir
+  if [[ "$FILE" == ./$NEW_DIR* ]]; then
+    continue
+  fi
+
+  # Remove leading './' from FILE
+  RELATIVE_PATH="${FILE:2}"
+
+  NEW_FILE_PATH="$NEW_DIR/${RELATIVE_PATH//\//_}"
+
+  # Copy the content of the file to the new file, overwriting if it already exists
+  cp -f "$FILE" "$NEW_FILE_PATH"
+done
+
+echo "All files have been copied to $NEW_DIR with their relative paths as filenames."

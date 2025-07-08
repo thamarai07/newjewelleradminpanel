@@ -1,0 +1,42 @@
+/* globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--b3));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--p));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--pf));
+}
+
+/* Add nice transition effects */
+a, button {
+  @apply transition-colors duration-200;
+}
+
+/* Additional utility classes */
+.card-zoom {
+  @apply transition-all duration-200 hover:shadow-lg hover:scale-[1.02];
+}
+
+/* Input focus styles */
+input:focus, textarea:focus, select:focus {
+  @apply outline-none ring-2 ring-primary ring-opacity-50;
+}
